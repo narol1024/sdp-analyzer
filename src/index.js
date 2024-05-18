@@ -114,7 +114,6 @@ module.exports.analyze = async function startAnalyze(targetPackage) {
       }
     }
     console.info(`🎉 Analyze successfully.`);
-
     return deps;
   }
 };

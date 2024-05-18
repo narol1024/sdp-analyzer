@@ -14,7 +14,7 @@ module.exports.isLocalPath = function isLocalPath(p) {
 };
 
 module.exports.dependants = async (name) => {
-  const url = `https://www.npmjs.com/package/${name}?activeTab=dependents`;
+  const url = `https://www.npmjs.com/package/${name}?activeTab=dependents&t=${Date.now()}`;
   const res = await fetch(url);
   const html = await res.text();
   const $ = cheerio.load(html);

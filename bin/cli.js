@@ -17,7 +17,6 @@ program
   .option("-o, --outType <string>", "the type of report output", "html")
   .action(async (targetPackage, { outType }) => {
     const deps = await sdpAnalyer.analyze(targetPackage);
-    console.log(outType);
     if (outType === "html") {
       reportServer.report(deps);
     } else if (outType === "json") {
