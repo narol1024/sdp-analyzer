@@ -1,0 +1,104 @@
+<html>
+  <head>
+    <title>SDP-Analyzer</title>
+    <style>
+      .title {
+        padding-bottom: 10px;
+        border-bottom: 1px solid #dedede;
+      }
+      .styled-table {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 500px;
+      }
+      .styled-table thead th {
+        text-align: left;
+      }
+      .styled-table thead tr {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: center;
+      }
+      .styled-table th,
+      .styled-table td {
+        padding: 12px 15px;
+      }
+      .styled-table tbody th {
+        text-align: right;
+      }
+      .styled-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+      }
+
+      .styled-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+      }
+
+      .styled-table tbody tr:last-of-type {
+        border-bottom: 2px solid #009879;
+      }
+      .styled-table tbody tr.active-row {
+        font-weight: bold;
+        color: #009879;
+      }
+      .styled-table .score {
+        width: 100%;
+        height: 100%;
+        font-weight: bold;
+      }
+      .styled-table .stable {
+        color: gray;
+      }
+      .styled-table .normal {
+        color: #0094ea;
+      }
+      .styled-table .flexible {
+        color: green;
+      }
+      .styled-table .instable {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <table class="styled-table">
+      <h2 class="title">The Report of the SDP Analysis</h2>
+      <thead>
+        <tr>
+          <th></th>
+          <% dep.forEach(function(d){ %>
+          <th><%= d.name %></th>
+          <% }) %>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Fan-in(入向依赖)</th>
+          <% dep.forEach(function(item){ %>
+          <td><%= item.in %></td>
+          <% }) %>
+        </tr>
+        <tr>
+          <th>Fan-out(出向依赖)</th>
+          <% dep.forEach(function(item){ %>
+          <td><%= item.out %></td>
+          <% }) %>
+        </tr>
+        <tr>
+          <th>I(不稳定性)</th>
+          <% dep.forEach(function(item){ %>
+          <td><%= item.instable.toFixed(2) %></td>
+          <% }) %>
+        </tr>
+        <tr>
+          <th>Score(评分)</th>
+          <% dep.forEach(function(item){ %>
+          <td><p class="score <%= item.label %>"><%= item.label %></p></td>
+          <% }) %>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
