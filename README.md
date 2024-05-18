@@ -8,14 +8,13 @@ Here's a simple quote, the theory is as follows:
 
 
 > Fan-in = Number of classes outside the component which depends on the component.
-> 
 > Fan-out = Number of classes outside the component which the component depends on.
 > 
 > Instability = Fan-out / (Fan-in + Fan-out).
 
 > Example: Component A has three classes from component B that depends on it (Fan-in = 3). Component A also depends on two classes from component C (Fan-out = 2). Therefore, the instability value for component A is 2/(3+2) = 2/5.
 
-For more details, please visit: https://narol.pro/2022/02/09/techniques/ru-he-heng-liang-zu-jian-de-wen-ding-xing/
+For more details, please visit: [My blog](https://narol.pro/2022/02/09/techniques/ru-he-heng-liang-zu-jian-de-wen-ding-xing/)
 
 ## Installation
 
@@ -39,7 +38,7 @@ sdp-analyzer ./examples
 sdp-analyzer react,vue,svelte,audio-analyser-cli
 ```
 
-### Npx
+#### Npx
 
 ```bash
 npx sdp-analyzer react,vue,svelte,audio-analyser-cli
@@ -50,7 +49,7 @@ npx sdp-analyzer react,vue,svelte,audio-analyser-cli
 ```javascript
 const sdpAnalyer = require("sdp-analyzer");
 try {
-  const deps = await sdpAnalyer.analyze(targetPackage);
+  const deps = await sdpAnalyer.analyze("react");
 } catch (error) {
   //  handle error
 }
