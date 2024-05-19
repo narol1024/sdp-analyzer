@@ -1,10 +1,10 @@
 # SDP-Analyzer
 
-An analyzer to implement the SDP (Stable Dependencies Principle) theory.
+An analyzer to implement the SDP (Stable Dependencies Principle) theory. You can quickly analyze your npm package here: https://narol.pro/sdp-analyzer
 
 ![](https://narol-blog.oss-cn-beijing.aliyuncs.com/blog-img/202405182335650.png)
 
-Here's a simple quote, the theory is as follows:
+Here's just a simple quote, the theory is as follows:
 
 
 > Fan-in = Number of classes outside the component which depends on the component.
@@ -14,7 +14,7 @@ Here's a simple quote, the theory is as follows:
 
 > Example: Component A has three classes from component B that depends on it (Fan-in = 3). Component A also depends on two classes from component C (Fan-out = 2). Therefore, the instability value for component A is 2/(3+2) = 2/5.
 
-For more details, please visit: [My blog](https://narol.pro/2022/02/09/techniques/ru-he-heng-liang-zu-jian-de-wen-ding-xing/)
+For more details, please read: [My blog](https://narol.pro/2022/02/09/techniques/ru-he-heng-liang-zu-jian-de-wen-ding-xing/).
 
 ## Installation
 
@@ -25,7 +25,7 @@ npm i sdp-analyzer -g
 ## Usages
 
 ### CLI
-
+ 
 #### To analyze local package
 
 ```bash

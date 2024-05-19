@@ -1,3 +1,3 @@
-const { double } = require("a");
+const { double } = require('a');
 
 console.log(double(2));

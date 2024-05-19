@@ -1,7 +1,7 @@
-const path = require("path");
-const fg = require("fast-glob");
-const util = require("./util");
-const { execSync } = require("child_process");
+const path = require('path');
+const fg = require('fast-glob');
+const util = require('./util');
+const { execSync } = require('child_process');
 
 // SDP expressions:
 // I = Fan-out / (Fan-in + Fan-out)
@@ -12,31 +12,33 @@ function sdpComputed(_out, _in) {
 // The scoring text is determined based on the I(instable) value
 function getInstableLabel(s) {
   if (s < 0.2) {
-    return "Stable";
+    return 'Stable';
   } else if (s < 0.6) {
-    return "Normal";
+    return 'Normal';
   } else if (s < 0.8) {
-    return "Flexible";
+    return 'Flexible';
   } else {
-    return "Instable";
+    return 'Instable';
   }
 }
 
 // To analyze the local pacakge, such as ./package-a
 function analyzeLocalPackages(packagePath) {
-  const packageJson = require(require.resolve("./package.json", {
-    paths: [packagePath],
-  }));
+  const packageJson = require(
+    require.resolve('./package.json', {
+      paths: [packagePath],
+    }),
+  );
 
   const dependencyMap = fg
     .sync(
-      packageJson.workspaces.map((v) => v + "/*.json"),
-      { cwd: packagePath }
+      packageJson.workspaces.map((v) => `${v}/*.json`),
+      { cwd: packagePath },
     )
     .map((subpackage) => {
       const subPackageJson = path.resolve(packagePath, subpackage);
       const json = require(subPackageJson);
-      const name = json.name;
+      const { name } = json;
       return {
         name,
         dependencies: json.dependencies,
@@ -45,7 +47,7 @@ function analyzeLocalPackages(packagePath) {
 
   if (dependencyMap.length === 0) {
     throw new Error(
-      "It seems that the 'subpackages' directory has not been found, please check the configuration of yarn workspaces.."
+      "It seems that the 'subpackages' directory has not been found, please check the configuration of yarn workspaces..",
     );
   }
 
@@ -61,45 +63,42 @@ function analyzeLocalPackages(packagePath) {
     dep.instable = sdpComputed(dep.out, dep.in);
     dep.label = getInstableLabel(dep.instable);
   });
+
+  return deps;
 }
 
 // To analyze the remote npm package, such as react, vue, express, etc.
 async function analyzeNpmPackage(packageName) {
-  try {
-    const output = execSync(
-      `npm view ${packageName} dependencies --json`
-    ).toString();
+  const output = execSync(
+    `npm view ${packageName} dependencies --json`,
+  ).toString();
+  const dependenciesObject = JSON.parse(output);
+  const dependencies = Object.entries(dependenciesObject).map(
+    ([name, version]) => ({
+      name,
+      version,
+    }),
+  );
+  const dep = {
+    name: packageName,
+    in: await util.dependants(packageName),
+    out: dependencies.length,
+  };
 
-    const dependenciesObject = JSON.parse(output);
-    const dependencies = Object.entries(dependenciesObject).map(
-      ([name, version]) => ({
-        name,
-        version,
-      })
-    );
-    const dep = {
-      name: packageName,
-      in: await util.dependants(packageName),
-      out: dependencies.length,
-    };
+  dep.instable = sdpComputed(dep.out, dep.in);
+  dep.label = getInstableLabel(dep.instable);
 
-    dep.instable = sdpComputed(dep.out, dep.in);
-    dep.label = getInstableLabel(dep.instable);
-
-    return dep;
-  } catch (error) {
-    throw error;
-  }
+  return dep;
 }
 
 // Here is a entry point.
 module.exports.analyze = async function startAnalyze(targetPackage) {
   if (util.isLocalPath(targetPackage)) {
-    const localPath = path.join(process.cwd(), program.args[0]);
-    analyzeLocalPackages(localPath);
+    const localPath = path.join(process.cwd(), targetPackage);
+    return analyzeLocalPackages(localPath);
   } else {
     // default to npm package
-    const normalizedPackages = targetPackage.split(",");
+    const normalizedPackages = targetPackage.split(',');
     const deps = [];
     for (const packageName of normalizedPackages) {
       console.info(`Analyzing ${packageName}...`);
@@ -108,12 +107,12 @@ module.exports.analyze = async function startAnalyze(targetPackage) {
         deps.push(dep);
       } catch (error) {
         // to ignore failed package
-        console.error(
-          `😭 Analyze unsuccessfully, ${packageName} was ignored. The error reason is ${error.message}.`
-        );
+        const errorMessage = `😭 Analyze unsuccessfully, ${packageName} was ignored.`;
+        console.error(errorMessage, ` The error reason is ${error.message}`);
+        return Promise.reject(new Error(errorMessage));
       }
     }
     console.info(`🎉 Analyze successfully.`);
-    return deps;
+    return Promise.resolve(deps);
   }
 };
