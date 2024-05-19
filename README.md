@@ -2,7 +2,7 @@
 
 An analyzer to implement the SDP (Stable Dependencies Principle) theory. You can quickly analyze your npm package here: https://narol.pro/sdp-analyzer
 
-![](https://narol-blog.oss-cn-beijing.aliyuncs.com/blog-img/202405182335650.png)
+![](https://narol-blog.oss-cn-beijing.aliyuncs.com/blog-img/202405192118699.png)
 
 Here's just a simple quote, the theory is as follows:
 
