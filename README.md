@@ -2,7 +2,7 @@
 
 An analyzer to implement the SDP (Stable Dependencies Principle) theory. You can quickly analyze your npm package here: https://narol.pro/sdp-analyzer
 
-![](https://narol-blog.oss-cn-beijing.aliyuncs.com/blog-img/202405192118699.png)
+![](https://narol-blog.oss-cn-beijing.aliyuncs.com/blog-img/202405202249324.png)
 
 Here's just a simple quote, the theory is as follows:
 
@@ -15,6 +15,12 @@ Here's just a simple quote, the theory is as follows:
 > Example: Component A has three classes from component B that depends on it (Fan-in = 3). Component A also depends on two classes from component C (Fan-out = 2). Therefore, the instability value for component A is 2/(3+2) = 2/5.
 
 For more details, please read: [My blog](https://narol.pro/2022/02/09/techniques/ru-he-heng-liang-zu-jian-de-wen-ding-xing/).
+
+> [!TIP]
+> The analyzing rule above based on the number of dependencies or dependents is a simple assessment. 
+> 
+> I think the rules could be much more exact, such as using more data from GitHub stars or NPM downloads to assess again. In that case, it should be called the "Stability Analyzer".
+
 
 ## Installation
 
@@ -68,9 +74,3 @@ The results are similar to the following:
   }
 ]
 ```
-
-## Extension
-
-The analyzing rule above based on the number of dependencies or dependents is a simple assessment. 
-
-I think the rules could be much more exact, such as using more data from GitHub stars or NPM downloads to assess again. 💡 In that case, it should be called the "Stability Analyzer".

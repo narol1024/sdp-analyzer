@@ -1,0 +1,16 @@
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, maximum-scale=1"
+/>
+<link rel="stylesheet" href="./unocss/tailwind.min.css" />
+<script src="./unocss/runtime.js"></script>
+<script src="./unocss/mini.global.js"></script>
+<script>
+  const prefersDark =
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const setting = localStorage.getItem('color-schema') || 'auto';
+  if (setting === 'dark' || (prefersDark && setting !== 'light')) {
+      document.documentElement.classList.toggle('dark', true);
+  }
+</script>

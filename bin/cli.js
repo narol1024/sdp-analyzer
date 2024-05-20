@@ -3,7 +3,7 @@
 const { Command } = require('commander');
 const sdpAnalyer = require('../src');
 const packageJson = require('../package.json');
-const reportServer = require('../src/report-server');
+const reportServer = require('../server/reportServer');
 
 const program = new Command();
 
