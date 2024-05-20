@@ -29,22 +29,22 @@ npm i sdp-analyzer -g
 #### To analyze local package
 
 ```bash
-sdp-analyzer ./examples
+sdp-analyzer analyze ./examples
 ```
 
 #### To analyze NPM package
 
 ```bash
-sdp-analyzer react,vue,svelte,audio-analyser-cli
+sdp-analyzer analyze react,vue,svelte,audio-analyser-cli
 ```
 
 #### Npx
 
 ```bash
-npx sdp-analyzer react,vue,svelte,audio-analyser-cli
+npx sdp-analyzer analyze react,vue,svelte,audio-analyser-cli
 ```
 
-### API
+### API Reference
 
 ```javascript
 const sdpAnalyer = require("sdp-analyzer");
@@ -68,3 +68,9 @@ The results are similar to the following:
   }
 ]
 ```
+
+### Extension
+
+The Analyzing rule above based on the number of dependencies or dependents is a simple assessment. 
+
+I think the rules could be much more exact, such as using more data from GitHub stars or NPM downloads to assess again. 💡 In that case, it should be called the "Stability Analyzer".
