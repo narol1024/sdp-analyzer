@@ -69,8 +69,8 @@ The results are similar to the following:
 ]
 ```
 
-### Extension
+## Extension
 
-The Analyzing rule above based on the number of dependencies or dependents is a simple assessment. 
+The analyzing rule above based on the number of dependencies or dependents is a simple assessment. 
 
 I think the rules could be much more exact, such as using more data from GitHub stars or NPM downloads to assess again. 💡 In that case, it should be called the "Stability Analyzer".
