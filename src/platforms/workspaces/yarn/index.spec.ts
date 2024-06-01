@@ -13,7 +13,7 @@ describe('Workspaces Tests', () => {
   it('should be that the package.json can be found', () => {
     expect(readWorkspacesDependencies('./src/platforms/workspaces/yarn/fixture')).toMatchSnapshot();
   });
-  it('should return a dep tree', async () => {
+  it('can analyze for local packages', async () => {
     await expect(analyze('./src/platforms/workspaces/yarn/fixture')).resolves.toMatchSnapshot();
   });
 });

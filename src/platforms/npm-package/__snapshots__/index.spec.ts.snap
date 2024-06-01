@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Npm pacakge Tests should return a dep array for multiple packages 1`] = `
+exports[`Npm pacakge Tests can analyze for multiple packages 1`] = `
 Array [
   Object {
     "fanIn": 10000,
@@ -19,19 +19,7 @@ Array [
 ]
 `;
 
-exports[`Npm pacakge Tests should return a dep array for single package 1`] = `
-Array [
-  Object {
-    "fanIn": 10000,
-    "fanOut": 1,
-    "label": "Stable",
-    "name": "react",
-    "stability": 0.00009999000099990002,
-  },
-]
-`;
-
-exports[`Npm pacakge Tests should return a dep array with the package version 1`] = `
+exports[`Npm pacakge Tests can analyze for multiple packages with the package version 1`] = `
 Array [
   Object {
     "fanIn": 10000,
@@ -50,7 +38,7 @@ Array [
 ]
 `;
 
-exports[`Npm pacakge Tests should return a dep array for multiple packages 1`] = `
+exports[`Npm pacakge Tests can analyze for single package 1`] = `
 Array [
   Object {
     "fanIn": 10000,
@@ -58,44 +46,6 @@ Array [
     "label": "Stable",
     "name": "react",
     "stability": 0.00009999000099990002,
-  },
-  Object {
-    "fanIn": 10000,
-    "fanOut": 5,
-    "label": "Stable",
-    "name": "vue",
-    "stability": 0.0004997501249375312,
-  },
-]
-`;
-
-exports[`Npm pacakge Tests should return a dep array for single package 1`] = `
-Array [
-  Object {
-    "fanIn": 10000,
-    "fanOut": 1,
-    "label": "Stable",
-    "name": "react",
-    "stability": 0.00009999000099990002,
-  },
-]
-`;
-
-exports[`Npm pacakge Tests should return a dep array with the package version 1`] = `
-Array [
-  Object {
-    "fanIn": 10000,
-    "fanOut": 1,
-    "label": "Stable",
-    "name": "react",
-    "stability": 0.00009999000099990002,
-  },
-  Object {
-    "fanIn": 10000,
-    "fanOut": 5,
-    "label": "Stable",
-    "name": "vue",
-    "stability": 0.0004997501249375312,
   },
 ]
 `;
