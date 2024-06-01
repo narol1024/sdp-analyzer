@@ -1,15 +1,14 @@
 {
   "name": "sdp-analyzer",
-  "type": "module",
   "main": "dist/index.js",
-  "bin": "dist/cli/index.js",
+  "bin": "dist/bin/cli.js",
   "types": "dist/main.d.ts",
   "version": "1.0.0",
   "scripts": {
     "prepare": "husky install",
     "build": "tsc --project tsconfig.build.json",
     "build:clean": "rm -rf tsconfig.build.tsbuildinfo && rm -rf ./dist",
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
+    "test": "jest",
     "test:coverage": "npm run test -- --coverage",
     "test:ci": "npm run test -- --colors --coverage --ci  --coverageReporters=\"json-summary\"",
     "lint": "eslint --ext .ts,.js .",

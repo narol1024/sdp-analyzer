@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Workspaces Tests can analyze for local packages 1`] = `
+exports[`Workspaces Tests can be analyzed for the local packages 1`] = `
 Array [
   Object {
     "fanIn": 1,
@@ -40,7 +40,7 @@ Array [
 ]
 `;
 
-exports[`Workspaces Tests should be that the package.json can be found 1`] = `
+exports[`Workspaces Tests should read a valid package 1`] = `
 Array [
   Object {
     "dependencies": Object {},
