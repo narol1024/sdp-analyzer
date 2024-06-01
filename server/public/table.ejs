@@ -36,6 +36,9 @@
   .table .instable {
     color: red;
   }
+  .table .failed {
+    color: orange;
+  }
 </style>
 <h2 op75="" pb2>The Results of the SDP Analyzer: </h2>
 <table class="table">
@@ -63,7 +66,7 @@
     <tr bg-gray:8>
       <th>I(不稳定性)</th>
       <% dep.forEach(function(item){ %>
-      <td><%= item.instable.toFixed(2) %></td>
+      <td><%= item.instable %></td>
       <% }) %>
     </tr>
     <tr bg-gray:12>

@@ -17,9 +17,9 @@ Here's just a simple quote, the theory is as follows:
 For more details, please read: [My blog](https://narol.pro/2022/02/09/techniques/ru-he-heng-liang-zu-jian-de-wen-ding-xing/).
 
 > [!TIP]
-> The analyzing rule above based on the number of dependencies or dependents is a simple assessment. 
+> The analyzing rule above based on the number of dependencies or dependents is a simple evaluation. 
 > 
-> I think the rules could be much more exact, such as using more data from GitHub stars or NPM downloads to assess again. In that case, it should be called the "Stability Analyzer".
+> I think the rules could be much more exact, such as using more data from GitHub stars or NPM downloads to evaluate again. In that case, it should be called the "Stability Analyzer".
 
 
 ## Installation
