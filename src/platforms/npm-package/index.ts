@@ -20,9 +20,12 @@ export async function readNpmPackageDependencies(packageName: string): Promise<N
       });
       const npmViewPromise = execAsync(`npm view ${packageName} dependencies --json`).then(result => {
         try {
-          const dependencies = JSON.parse(result.stdout) as NpmDependency;
+          const resultJson = JSON.parse(result.stdout) as any;
+          if (!!resultJson.error) {
+            reject(new Error(`Cannot read ${packageName}.`));
+          }
           resolve(
-            Object.entries(dependencies).map(([name, version]) => ({
+            Object.entries(resultJson as NpmDependency).map(([name, version]) => ({
               name,
               version,
             })),
@@ -61,7 +64,7 @@ export async function countNpmPackageDependants(packageName: string, version: st
       const path = version !== null ? `${packageName}/v/${version}` : packageName;
       const url = `https://www.npmjs.com/package/${path}?activeTab=dependents&t=${Date.now()}`;
       const timeoutPromise = new Promise<void>((_, timeoutReject) => {
-        countNpmPackageDependantsTimeId = setTimeout(() => timeoutReject(new Error('Operation timed out')), 8000);
+        countNpmPackageDependantsTimeId = setTimeout(() => timeoutReject(new Error('Operation timed out')), 20000);
       });
       const fetchPromise = async (): Promise<void> => {
         try {
@@ -71,12 +74,7 @@ export async function countNpmPackageDependants(packageName: string, version: st
           const htmlStr = $('#package-tab-dependents span').html();
           const match = htmlStr?.match(/(?<=<\/svg>\s*)(\S+)(?=\s*Dependents)/)?.[0];
           if (match) {
-            // As the dependant of an npm package is dynamic, it is necessary to mock a number when testing.
-            if (typeof __JEST_TEST_ENV__ !== 'undefined' && __JEST_TEST_ENV__) {
-              resolve(10000);
-            } else {
-              resolve(parseInt(match.replace(/,/g, ''), 10));
-            }
+            resolve(parseInt(match.replace(/,/g, ''), 10));
           } else {
             return Promise.reject(new Error(`Operation failed`));
           }
@@ -92,7 +90,7 @@ export async function countNpmPackageDependants(packageName: string, version: st
             retriedTimes += 1;
             doCountTask();
           } else {
-            reject(new Error(`Cannot read ${packageName}.`));
+            reject(new Error(`Cannot count the depandants of the ${packageName}.`));
           }
         })
         .finally(() => {
@@ -129,7 +127,7 @@ export async function analyze(packageNames: string): Promise<Dep[]> {
 
     const deps = await Promise.all(depsPromises);
     return Promise.resolve(deps);
-  } catch (error) {
-    return Promise.reject(new Error(`Cannot analyze ${packageNames}`));
+  } catch (error: any) {
+    return Promise.reject(new Error(`Cannot analyze ${packageNames}, the reason is \"${error.message}\"`));
   }
 }

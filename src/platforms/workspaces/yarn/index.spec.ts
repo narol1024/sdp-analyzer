@@ -16,12 +16,14 @@ describe('Workspaces Tests', () => {
   it('should not read an invalid package', async () => {
     await expect(analyze('./src/platforms/workspaces/yarn/fixture/invalid-packages')).rejects.toEqual(
       new Error(
-        `It seems that the 'subpackages' directory has not been found, please check the configuration of yarn workspaces..`,
+        `It seems that the 'subpackages' directory has not been found, please check the configuration of yarn workspaces.`,
       ),
     );
   });
   it('can not analyze for the invalid local packages', async () => {
-    await expect(analyze('./error-path')).rejects.toEqual(new Error(`Cannot analyze ./error-path`));
+    await expect(analyze('./error-path')).rejects.toEqual(
+      new Error(`Cannot analyze ./error-path, the reason is \"Cannot find package.json on ./error-path.\".`),
+    );
   });
   it('can be analyzed for the local packages', async () => {
     await expect(analyze('./src/platforms/workspaces/yarn/fixture/valid-packages')).resolves.toMatchSnapshot();
