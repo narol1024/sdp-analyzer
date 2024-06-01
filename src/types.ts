@@ -5,7 +5,6 @@ export interface Dep {
   stability: number;
   label: string;
 }
-
 export interface NpmDependency {
   name: string;
   version: string;

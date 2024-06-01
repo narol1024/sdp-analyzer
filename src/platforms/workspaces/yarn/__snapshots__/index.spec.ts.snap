@@ -1,45 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Workspaces Tests should be that the package.json can be found 1`] = `
-Array [
-  Object {
-    "dependencies": Object {},
-    "name": "a",
-  },
-  Object {
-    "dependencies": Object {
-      "a": "^1.0.0",
-    },
-    "name": "b",
-  },
-  Object {
-    "dependencies": Object {
-      "a": "^1.0.0",
-      "b": "^1.0.0",
-    },
-    "name": "c",
-  },
-  Object {
-    "dependencies": Object {
-      "a": "^1.0.0",
-      "b": "^1.0.0",
-      "c": "^1.0.0",
-    },
-    "name": "d",
-  },
-  Object {
-    "dependencies": Object {
-      "a": "^1.0.0",
-      "b": "^1.0.0",
-      "c": "^1.0.0",
-      "e": "^1.0.0",
-    },
-    "name": "e",
-  },
-]
-`;
-
-exports[`Workspaces Tests should return a dep tree 1`] = `
+exports[`Workspaces Tests can analyze for local packages 1`] = `
 Array [
   Object {
     "fanIn": 1,
@@ -113,46 +74,6 @@ Array [
       "c": "^1.0.0",
       "e": "^1.0.0",
     },
-    "name": "e",
-  },
-]
-`;
-
-exports[`Workspaces Tests should return a dep tree 1`] = `
-Array [
-  Object {
-    "fanIn": 1,
-    "fanOut": 0,
-    "instable": 0,
-    "label": "Stable",
-    "name": "a",
-  },
-  Object {
-    "fanIn": 1,
-    "fanOut": 1,
-    "instable": 0.5,
-    "label": "Normal",
-    "name": "b",
-  },
-  Object {
-    "fanIn": 1,
-    "fanOut": 2,
-    "instable": 0.6666666666666666,
-    "label": "Flexible",
-    "name": "c",
-  },
-  Object {
-    "fanIn": 1,
-    "fanOut": 3,
-    "instable": 0.75,
-    "label": "Flexible",
-    "name": "d",
-  },
-  Object {
-    "fanIn": 1,
-    "fanOut": 4,
-    "instable": 0.8,
-    "label": "Instable",
     "name": "e",
   },
 ]

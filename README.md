@@ -55,9 +55,9 @@ npx sdp-analyzer analyze react,vue,svelte,audio-analyser-cli
 ### API Reference
 
 ```javascript
-const { analyzeNpmPackage } = require("sdp-analyzer");
+const { analyze } = require("sdp-analyzer");
 try {
-  const deps = await sdpAnalyer.analyze("react");
+  const deps = await analyze("react");
 } catch (error) {
   //  handle error
 }

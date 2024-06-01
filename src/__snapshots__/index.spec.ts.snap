@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Main Tests can analyze a valid npm package 1`] = `
+Array [
+  Object {
+    "fanIn": 10000,
+    "fanOut": 1,
+    "label": "Stable",
+    "name": "react",
+    "stability": 0.00009999000099990002,
+  },
+]
+`;
+
+exports[`Main Tests can analyze for local packages 1`] = `
+Array [
+  Object {
+    "fanIn": 1,
+    "fanOut": 0,
+    "instable": 0,
+    "label": "Stable",
+    "name": "a",
+  },
+  Object {
+    "fanIn": 1,
+    "fanOut": 1,
+    "instable": 0.5,
+    "label": "Normal",
+    "name": "b",
+  },
+  Object {
+    "fanIn": 1,
+    "fanOut": 2,
+    "instable": 0.6666666666666666,
+    "label": "Flexible",
+    "name": "c",
+  },
+  Object {
+    "fanIn": 1,
+    "fanOut": 3,
+    "instable": 0.75,
+    "label": "Flexible",
+    "name": "d",
+  },
+  Object {
+    "fanIn": 1,
+    "fanOut": 4,
+    "instable": 0.8,
+    "label": "Instable",
+    "name": "e",
+  },
+]
+`;

@@ -15,13 +15,13 @@ describe('Npm pacakge Tests', () => {
       { name: 'loose-envify', version: '^1.1.0' },
     ]);
   });
-  it('should return a dep array for single package', async () => {
+  it('can analyze for single package', async () => {
     await expect(analyze('react')).resolves.toMatchSnapshot();
   });
-  it('should return a dep array for multiple packages', async () => {
+  it('can analyze for multiple packages', async () => {
     await expect(analyze('react,vue')).resolves.toMatchSnapshot();
   });
-  it('should return a dep array with the package version', async () => {
+  it('can analyze for multiple packages with the package version', async () => {
     await expect(analyze('react@16.0.0,vue@3.0.0')).resolves.toMatchSnapshot();
   });
 });
