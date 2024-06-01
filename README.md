@@ -1,5 +1,7 @@
 # SDP-Analyzer
 
+[![cov](https://narol1024.github.io/sdp-analyzer/badges/coverage.svg)](https://github.com/narol1024/sdp-analyzer/actions)
+
 An analyzer to implement the SDP (Stable Dependencies Principle) theory. You can quickly analyze your npm package here: https://narol.pro/sdp-analyzer
 
 ![](https://narol-blog.oss-cn-beijing.aliyuncs.com/blog-img/202405202249324.png)
@@ -17,9 +19,9 @@ Here's just a simple quote, the theory is as follows:
 For more details, please read: [My blog](https://narol.pro/2022/02/09/techniques/ru-he-heng-liang-zu-jian-de-wen-ding-xing/).
 
 > [!TIP]
-> The analyzing rule above based on the number of dependencies or dependents is a simple assessment. 
+> The analyzing rule above based on the number of dependencies or dependents is a simple evaluation. 
 > 
-> I think the rules could be much more exact, such as using more data from GitHub stars or NPM downloads to assess again. In that case, it should be called the "Stability Analyzer".
+> I think the rules could be much more exact, such as using more data from GitHub stars or NPM downloads to evaluate again. In that case, it should be called the "Stability Analyzer".
 
 
 ## Installation
@@ -53,7 +55,7 @@ npx sdp-analyzer analyze react,vue,svelte,audio-analyser-cli
 ### API Reference
 
 ```javascript
-const sdpAnalyer = require("sdp-analyzer");
+const { analyzeNpmPackage } = require("sdp-analyzer");
 try {
   const deps = await sdpAnalyer.analyze("react");
 } catch (error) {
