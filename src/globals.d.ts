@@ -1,0 +1,1 @@
+var __JEST_TEST_ENV__: boolean
