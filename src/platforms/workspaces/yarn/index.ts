@@ -40,7 +40,7 @@ export async function analyze(packagePath: string) {
     if (dependencyMap.length === 0) {
       return Promise.reject(
         new Error(
-          "It seems that the 'subpackages' directory has not been found, please check the configuration of yarn workspaces..",
+          "It seems that the 'subpackages' directory has not been found, please check the configuration of yarn workspaces.",
         ),
       );
     }
@@ -61,7 +61,7 @@ export async function analyze(packagePath: string) {
         };
       }),
     );
-  } catch (error) {
-    return Promise.reject(new Error(`Cannot analyze ${packagePath}`));
+  } catch (error: any) {
+    return Promise.reject(new Error(`Cannot analyze ${packagePath}, the reason is \"${error.message}\".`));
   }
 }

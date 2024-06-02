@@ -23,17 +23,17 @@ exports[`Npm pacakge Tests can be analyzed for multiple packages with the packag
 Array [
   Object {
     "fanIn": 10000,
-    "fanOut": 1,
+    "fanOut": 4,
     "label": "Stable",
     "name": "react",
-    "stability": 0.00009999000099990002,
+    "stability": 0.00039984006397441024,
   },
   Object {
     "fanIn": 10000,
-    "fanOut": 5,
+    "fanOut": 3,
     "label": "Stable",
     "name": "vue",
-    "stability": 0.0004997501249375312,
+    "stability": 0.00029991002699190244,
   },
 ]
 `;

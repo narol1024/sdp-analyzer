@@ -14,7 +14,7 @@ module.exports = {
   preset: 'ts-jest/presets/default-esm',
   extensionsToTreatAsEsm: ['.ts'],
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
-  // testMatch: ['<rootDir>/src/cli/*.spec.ts'],
+  // testMatch: ['<rootDir>/src/platforms/npm-package/index.spec.ts'],
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
