@@ -5,17 +5,19 @@ import { load as cheerioLoad } from 'cheerio';
 import type { Dep, NpmDependency } from '../../types';
 import { evaluate } from '../../core';
 import { getStablityLabel } from '../../utils/label';
-import { timeout } from '../../utils/timeout';
 
 const execAsync = promisify(exec);
 
 // To read the dependencies of a npm package
 export async function readNpmPackageDependencies(packageName: string): Promise<NpmDependency[]> {
   let readNpmPackageDependenciesTimeId: NodeJS.Timeout;
-  let retryTimes = 0;
+  let retriedTimes = 0;
   return new Promise((resolve, reject) => {
     // Relying on remote network is unstable possibly, it is necessary to use a task for retries.
     async function doReadTask(): Promise<void> {
+      const timeoutPromise = new Promise<void>((_, timeoutReject) => {
+        readNpmPackageDependenciesTimeId = setTimeout(() => timeoutReject(new Error('Operation timed out')), 5000);
+      });
       const npmViewPromise = execAsync(`npm view ${packageName} dependencies --json`).then(result => {
         try {
           const dependencies = JSON.parse(result.stdout) as NpmDependency;
@@ -31,10 +33,10 @@ export async function readNpmPackageDependencies(packageName: string): Promise<N
           clearTimeout(readNpmPackageDependenciesTimeId);
         }
       });
-      Promise.race([npmViewPromise, timeout(10000, readNpmPackageDependenciesTimeId)])
+      Promise.race([npmViewPromise, timeoutPromise])
         .catch(async error => {
-          if (error.message === 'Operation timed out' && retryTimes < 3) {
-            retryTimes += 1;
+          if (error.message === 'Operation timed out' && retriedTimes < 100) {
+            retriedTimes += 1;
             doReadTask();
           } else {
             reject(new Error(`Cannot read ${packageName}.`));
@@ -51,13 +53,16 @@ export async function readNpmPackageDependencies(packageName: string): Promise<N
 // Count the dependants of a npm package
 export async function countNpmPackageDependants(packageName: string, version: string | null): Promise<number> {
   let countNpmPackageDependantsTimeId: NodeJS.Timeout;
-  let retryTimes = 0;
+  let retriedTimes = 0;
 
   return new Promise((resolve, reject) => {
     // Relying on remote network is unstable possibly, it is necessary to use a task for retries.
     async function doCountTask(): Promise<void> {
       const path = version !== null ? `${packageName}/v/${version}` : packageName;
       const url = `https://www.npmjs.com/package/${path}?activeTab=dependents&t=${Date.now()}`;
+      const timeoutPromise = new Promise<void>((_, timeoutReject) => {
+        countNpmPackageDependantsTimeId = setTimeout(() => timeoutReject(new Error('Operation timed out')), 8000);
+      });
       const fetchPromise = async (): Promise<void> => {
         try {
           const res = await nodeFetch(url);
@@ -81,10 +86,10 @@ export async function countNpmPackageDependants(packageName: string, version: st
           clearTimeout(countNpmPackageDependantsTimeId);
         }
       };
-      Promise.race([fetchPromise(), timeout(10000, countNpmPackageDependantsTimeId)])
+      Promise.race([fetchPromise(), timeoutPromise])
         .catch(async error => {
-          if ((error.message === 'Operation timed out' || error.message === 'Operation failed') && retryTimes < 5) {
-            retryTimes += 1;
+          if ((error.message === 'Operation timed out' || error.message === 'Operation failed') && retriedTimes < 100) {
+            retriedTimes += 1;
             doCountTask();
           } else {
             reject(new Error(`Cannot read ${packageName}.`));
@@ -101,33 +106,28 @@ export async function countNpmPackageDependants(packageName: string, version: st
 // To analyze one or multiple packages on the npm repository, like react, vue, express, etc.
 export async function analyze(packageNames: string): Promise<Dep[]> {
   try {
-    // default to npm package
     const normalizedPackageNames = packageNames.split(',');
-    const deps: Dep[] = [];
-    for (let packageName of normalizedPackageNames) {
+    const depsPromises = normalizedPackageNames.map(async packageName => {
       let version = null;
       if (packageName.includes('@')) {
-        const _arr = packageName.split('@');
-        packageName = _arr[0].trim();
-        version = _arr[1];
+        [packageName, version] = packageName.split('@').map(part => part.trim());
       }
       const [dependencies, dependants] = await Promise.all([
         readNpmPackageDependencies(packageName),
         countNpmPackageDependants(packageName, version),
       ]);
-      const _dep = {
+      const fanOut = dependencies.length;
+      const stability = fanOut === 0 ? 0 : evaluate(fanOut, dependants);
+      return {
         name: packageName,
         fanIn: dependants,
-        fanOut: dependencies.length,
-      };
-      const stability = _dep.fanOut === 0 ? 0 : evaluate(_dep.fanOut, _dep.fanIn);
-      const dep = {
-        ..._dep,
+        fanOut,
         stability,
         label: getStablityLabel(stability),
       };
-      deps.push(dep);
-    }
+    });
+
+    const deps = await Promise.all(depsPromises);
     return Promise.resolve(deps);
   } catch (error) {
     return Promise.reject(new Error(`Cannot analyze ${packageNames}`));

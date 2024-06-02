@@ -10,6 +10,9 @@ export function readWorkspacesDependencies(packagePath: string) {
   try {
     const rootPackageJson = jsonfile.readFileSync(packageJsonPath);
     const workspaces = rootPackageJson.workspaces as string[];
+    if (workspaces === undefined || workspaces.length === 0) {
+      return [];
+    }
     const dependencyMap = fg
       .sync(
         workspaces.map(v => `${v}/*.json`),
@@ -35,8 +38,10 @@ export async function analyze(packagePath: string) {
   try {
     const dependencyMap = readWorkspacesDependencies(packagePath);
     if (dependencyMap.length === 0) {
-      throw new Error(
-        "It seems that the 'subpackages' directory has not been found, please check the configuration of yarn workspaces..",
+      return Promise.reject(
+        new Error(
+          "It seems that the 'subpackages' directory has not been found, please check the configuration of yarn workspaces..",
+        ),
       );
     }
     const deps = dependencyMap.map(v => {

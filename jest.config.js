@@ -1,17 +1,20 @@
-import 'dotenv/config';
+require('dotenv/config');
 
 const isCI = process.env.CI === 'true';
 
-export default {
+module.exports = {
   verbose: true,
   collectCoverage: false,
   resetModules: true,
   restoreMocks: true,
   testEnvironment: 'node',
-  transform: {},
+  transform: {
+    '^.+\\\\\\\\.tsx?$': 'ts-jest',
+  },
   preset: 'ts-jest/presets/default-esm',
   extensionsToTreatAsEsm: ['.ts'],
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
+  // testMatch: ['<rootDir>/src/cli/*.spec.ts'],
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },

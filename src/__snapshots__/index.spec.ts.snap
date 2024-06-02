@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Main Tests can analyze a valid npm package 1`] = `
+exports[`Main Tests can be analyzed for a valid npm package 1`] = `
 Array [
   Object {
     "fanIn": 10000,
@@ -12,7 +12,7 @@ Array [
 ]
 `;
 
-exports[`Main Tests can analyze for local packages 1`] = `
+exports[`Main Tests can be analyzed for local packages 1`] = `
 Array [
   Object {
     "fanIn": 1,

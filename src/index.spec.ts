@@ -5,10 +5,10 @@
 import { analyze } from './index';
 
 describe('Main Tests', () => {
-  it('can analyze a valid npm package', async () => {
+  it('can be analyzed for a valid npm package', async () => {
     await expect(analyze('react')).resolves.toMatchSnapshot();
   });
-  it('can analyze for local packages', async () => {
-    await expect(analyze('./src/platforms/workspaces/yarn/fixture')).resolves.toMatchSnapshot();
+  it('can be analyzed for local packages', async () => {
+    await expect(analyze('./src/platforms/workspaces/yarn/fixture/valid-packages')).resolves.toMatchSnapshot();
   });
 });

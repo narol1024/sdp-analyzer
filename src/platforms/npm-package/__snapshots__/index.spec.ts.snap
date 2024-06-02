@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Npm pacakge Tests can analyze for multiple packages 1`] = `
+exports[`Npm pacakge Tests can be analyzed for multiple packages 1`] = `
 Array [
   Object {
     "fanIn": 10000,
@@ -19,7 +19,7 @@ Array [
 ]
 `;
 
-exports[`Npm pacakge Tests can analyze for multiple packages with the package version 1`] = `
+exports[`Npm pacakge Tests can be analyzed for multiple packages with the package version 1`] = `
 Array [
   Object {
     "fanIn": 10000,
@@ -38,7 +38,7 @@ Array [
 ]
 `;
 
-exports[`Npm pacakge Tests can analyze for single package 1`] = `
+exports[`Npm pacakge Tests can be analyzed for single package 1`] = `
 Array [
   Object {
     "fanIn": 10000,
