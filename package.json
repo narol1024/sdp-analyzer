@@ -1,6 +1,6 @@
 {
   "name": "sdp-analyzer",
-  "version": "0.4.1",
+  "version": "0.4.3",
   "license": "MIT",
   "homepage": "https://github.com/narol1024/sdp-analyzer#readme",
   "author": "narol <narolcat@gmail.com> (https://github.com/narol1024)",
@@ -70,8 +70,11 @@
     "registry": "https://registry.npmjs.org/"
   },
   "release-it": {
-    "hooks":{
-      "after:bump": ["npm run build:version", "npm run build"]
+    "hooks": {
+      "after:bump": [
+        "npm run build:version",
+        "npm run build"
+      ]
     },
     "git": {
       "commitMessage": "chore: release ${version}",
