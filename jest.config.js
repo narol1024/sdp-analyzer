@@ -36,5 +36,6 @@ module.exports = {
   ],
   coverageProvider: 'v8',
   coverageReporters: isCI ? ['json'] : ['text'],
-  testTimeout: 120 * 1000,
+  testTimeout: 60 * 1000,
+  setupFiles: ['./jest-global-mock.ts'],
 };

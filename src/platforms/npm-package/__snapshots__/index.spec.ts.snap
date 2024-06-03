@@ -1,6 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Npm pacakge Tests can be analyzed for multiple packages 1`] = `
+exports[`Npm package tests can be analyzed for a zero dependency library 1`] = `
+Array [
+  Object {
+    "fanIn": 10000,
+    "fanOut": 0,
+    "label": "Stable",
+    "name": "lodash",
+    "stability": 0,
+  },
+]
+`;
+
+exports[`Npm package tests can be analyzed for multiple packages 1`] = `
 Array [
   Object {
     "fanIn": 10000,
@@ -19,26 +31,26 @@ Array [
 ]
 `;
 
-exports[`Npm pacakge Tests can be analyzed for multiple packages with the package version 1`] = `
+exports[`Npm package tests can be analyzed for multiple packages with the package version 1`] = `
 Array [
   Object {
     "fanIn": 10000,
-    "fanOut": 4,
+    "fanOut": 1,
     "label": "Stable",
     "name": "react",
-    "stability": 0.00039984006397441024,
+    "stability": 0.00009999000099990002,
   },
   Object {
     "fanIn": 10000,
-    "fanOut": 3,
+    "fanOut": 5,
     "label": "Stable",
     "name": "vue",
-    "stability": 0.00029991002699190244,
+    "stability": 0.0004997501249375312,
   },
 ]
 `;
 
-exports[`Npm pacakge Tests can be analyzed for single package 1`] = `
+exports[`Npm package tests can be analyzed for single package 1`] = `
 Array [
   Object {
     "fanIn": 10000,

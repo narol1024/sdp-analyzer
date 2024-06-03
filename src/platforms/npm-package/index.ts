@@ -18,27 +18,28 @@ export async function readNpmPackageDependencies(packageName: string): Promise<N
       const timeoutPromise = new Promise<void>((_, timeoutReject) => {
         readNpmPackageDependenciesTimeId = setTimeout(() => timeoutReject(new Error('Operation timed out')), 5000);
       });
-      const npmViewPromise = execAsync(`npm view ${packageName} dependencies --json`).then(result => {
-        try {
-          const resultJson = JSON.parse(result.stdout) as any;
-          if (!!resultJson.error) {
-            reject(new Error(`Cannot read ${packageName}.`));
+      const npmViewPromise = execAsync(`npm view ${packageName} dependencies --json`).then(
+        (result: any): Promise<void> => {
+          try {
+            const resultJson = JSON.parse(result.stdout) as any;
+            if (!!resultJson.error) {
+              throw new Error(`Cannot read ${packageName}.`);
+            }
+            resolve(
+              Object.entries(resultJson as NpmDependency).map(([name, version]) => ({
+                name,
+                version,
+              })),
+            );
+            return Promise.resolve();
+          } catch (error) {
+            return Promise.reject(new Error(`Cannot read ${packageName}.`));
           }
-          resolve(
-            Object.entries(resultJson as NpmDependency).map(([name, version]) => ({
-              name,
-              version,
-            })),
-          );
-        } catch (error) {
-          reject(new Error(`Cannot read ${packageName}.`));
-        } finally {
-          clearTimeout(readNpmPackageDependenciesTimeId);
-        }
-      });
+        },
+      );
       Promise.race([npmViewPromise, timeoutPromise])
-        .catch(async error => {
-          if (error.message === 'Operation timed out' && retriedTimes < 100) {
+        .catch(() => {
+          if (retriedTimes < 5) {
             retriedTimes += 1;
             doReadTask();
           } else {
@@ -64,7 +65,7 @@ export async function countNpmPackageDependants(packageName: string, version: st
       const path = version !== null ? `${packageName}/v/${version}` : packageName;
       const url = `https://www.npmjs.com/package/${path}?activeTab=dependents&t=${Date.now()}`;
       const timeoutPromise = new Promise<void>((_, timeoutReject) => {
-        countNpmPackageDependantsTimeId = setTimeout(() => timeoutReject(new Error('Operation timed out')), 20000);
+        countNpmPackageDependantsTimeId = setTimeout(() => timeoutReject(new Error('Operation timed out')), 5000);
       });
       const fetchPromise = async (): Promise<void> => {
         try {
@@ -75,18 +76,16 @@ export async function countNpmPackageDependants(packageName: string, version: st
           const match = htmlStr?.match(/(?<=<\/svg>\s*)(\S+)(?=\s*Dependents)/)?.[0];
           if (match) {
             resolve(parseInt(match.replace(/,/g, ''), 10));
-          } else {
-            return Promise.reject(new Error(`Operation failed`));
+            return Promise.resolve();
           }
+          throw new Error(`Operation failed`);
         } catch (error) {
           return Promise.reject(new Error(`Operation failed`));
-        } finally {
-          clearTimeout(countNpmPackageDependantsTimeId);
         }
       };
       Promise.race([fetchPromise(), timeoutPromise])
-        .catch(async error => {
-          if ((error.message === 'Operation timed out' || error.message === 'Operation failed') && retriedTimes < 100) {
+        .catch(() => {
+          if (retriedTimes < 5) {
             retriedTimes += 1;
             doCountTask();
           } else {
