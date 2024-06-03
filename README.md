@@ -1,6 +1,10 @@
 # SDP-Analyzer
 
 [![cov](https://narol1024.github.io/sdp-analyzer/badges/coverage.svg)](https://github.com/narol1024/sdp-analyzer/actions)
+[![npm version](https://img.shields.io/npm/v/sdp-analyzer.svg?style=flat)](https://www.npmjs.com/package/sdp-analyzer)
+[![npm](https://img.shields.io/npm/dm/sdp-analyzer.svg)](https://www.npmjs.com/package/sdp-analyzer)
+[![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat)](https://github.com/narol1024/sdp-analyzer/blob/main/LICENSE)
+
 
 An analyzer to implement the SDP (Stable Dependencies Principle) theory. You can quickly analyze your npm package here: https://narol.pro/sdp-analyzer
 
