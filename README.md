@@ -75,7 +75,7 @@ The results are similar to the following:
     "name": "react",
     "in": 195657,
     "out": 1,
-    "instable": 0.000005110958918112216,
+    "instability": 0.000005110958918112216,
     "label": "Stable"
   }
 ]

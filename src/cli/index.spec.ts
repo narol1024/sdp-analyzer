@@ -17,7 +17,7 @@ describe('CLI tool Tests', () => {
             name: 'react',
             fanIn: 10000,
             fanOut: 1,
-            stability: 0.00009999000099990002,
+            instability: 0.00009999000099990002,
             label: 'Stable',
           },
         ],

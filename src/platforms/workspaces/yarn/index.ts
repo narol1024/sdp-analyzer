@@ -3,6 +3,7 @@ import fg from 'fast-glob';
 import jsonfile from 'jsonfile';
 import { evaluate } from '../../../core';
 import { getStablityLabel } from '../../../utils/label';
+import { SDPResults } from '../../../types';
 
 // To read the dependencies of a package using workspaces.
 export function readWorkspacesDependencies(packagePath: string) {
@@ -34,7 +35,7 @@ export function readWorkspacesDependencies(packagePath: string) {
 }
 
 // To analyze workspaces using Yarn package manager, such as ./my-yarn-workspaces-project
-export async function analyze(packagePath: string) {
+export async function analyze(packagePath: string): Promise<SDPResults[]> {
   try {
     const dependencyMap = readWorkspacesDependencies(packagePath);
     if (dependencyMap.length === 0) {
@@ -53,11 +54,11 @@ export async function analyze(packagePath: string) {
     });
     return Promise.resolve(
       deps.map(dep => {
-        const stablility = evaluate(dep.fanOut, dep.fanIn);
+        const instability = evaluate(dep.fanOut, dep.fanIn);
         return {
           ...dep,
-          instable: stablility,
-          label: getStablityLabel(stablility),
+          instability,
+          label: getStablityLabel(instability),
         };
       }),
     );

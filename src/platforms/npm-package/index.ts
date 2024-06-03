@@ -2,7 +2,7 @@ import { exec } from 'child_process';
 import nodeFetch from 'node-fetch';
 import { promisify } from 'util';
 import { load as cheerioLoad } from 'cheerio';
-import type { Dep, NpmDependency } from '../../types';
+import type { SDPResults, NpmDependency } from '../../types';
 import { evaluate } from '../../core';
 import { getStablityLabel } from '../../utils/label';
 
@@ -101,7 +101,7 @@ export async function countNpmPackageDependants(packageName: string, version: st
 }
 
 // To analyze one or multiple packages on the npm repository, like react, vue, express, etc.
-export async function analyze(packageNames: string): Promise<Dep[]> {
+export async function analyze(packageNames: string): Promise<SDPResults[]> {
   try {
     const normalizedPackageNames = packageNames.split(',');
     const depsPromises = normalizedPackageNames.map(async packageName => {
@@ -114,13 +114,13 @@ export async function analyze(packageNames: string): Promise<Dep[]> {
         countNpmPackageDependants(packageName, version),
       ]);
       const fanOut = dependencies.length;
-      const stability = fanOut === 0 ? 0 : evaluate(fanOut, dependants);
+      const instability = fanOut === 0 ? 0 : evaluate(fanOut, dependants);
       return {
         name: packageName,
         fanIn: dependants,
         fanOut,
-        stability,
-        label: getStablityLabel(stability),
+        instability,
+        label: getStablityLabel(instability),
       };
     });
 

@@ -5,9 +5,9 @@ Array [
   Object {
     "fanIn": 10000,
     "fanOut": 0,
+    "instability": 0,
     "label": "Stable",
     "name": "lodash",
-    "stability": 0,
   },
 ]
 `;
@@ -17,16 +17,16 @@ Array [
   Object {
     "fanIn": 10000,
     "fanOut": 1,
+    "instability": 0.00009999000099990002,
     "label": "Stable",
     "name": "react",
-    "stability": 0.00009999000099990002,
   },
   Object {
     "fanIn": 10000,
     "fanOut": 5,
+    "instability": 0.0004997501249375312,
     "label": "Stable",
     "name": "vue",
-    "stability": 0.0004997501249375312,
   },
 ]
 `;
@@ -36,16 +36,16 @@ Array [
   Object {
     "fanIn": 10000,
     "fanOut": 1,
+    "instability": 0.00009999000099990002,
     "label": "Stable",
     "name": "react",
-    "stability": 0.00009999000099990002,
   },
   Object {
     "fanIn": 10000,
     "fanOut": 5,
+    "instability": 0.0004997501249375312,
     "label": "Stable",
     "name": "vue",
-    "stability": 0.0004997501249375312,
   },
 ]
 `;
@@ -55,9 +55,9 @@ Array [
   Object {
     "fanIn": 10000,
     "fanOut": 1,
+    "instability": 0.00009999000099990002,
     "label": "Stable",
     "name": "react",
-    "stability": 0.00009999000099990002,
   },
 ]
 `;
