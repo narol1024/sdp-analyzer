@@ -36,7 +36,7 @@ const dependantsHtml = `
       stdout: `{  "@vue/shared": "3.4.27", "@vue/compiler-dom": "3.4.27", "@vue/compiler-sfc": "3.4.27", "@vue/runtime-dom": "3.4.27", "@vue/server-renderer": "3.4.27" }`,
     });
   } else {
-    callback(null, { stdout: '{}' });
+    callback(null, { stdout: '' });
   }
 });
 

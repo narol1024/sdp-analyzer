@@ -21,7 +21,13 @@ export async function readNpmPackageDependencies(packageName: string): Promise<N
       const npmViewPromise = execAsync(`npm view ${packageName} dependencies --json`).then(
         (result: any): Promise<void> => {
           try {
-            const resultJson = JSON.parse(result.stdout) as any;
+            const resultStdout = result.stdout;
+            // it means zero dependency.
+            if (resultStdout === '') {
+              resolve([]);
+              return Promise.resolve();
+            }
+            const resultJson = JSON.parse(resultStdout) as any;
             if (!!resultJson.error) {
               throw new Error(`Cannot read ${packageName}.`);
             }
