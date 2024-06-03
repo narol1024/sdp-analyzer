@@ -8,6 +8,8 @@ import fetch from 'node-fetch';
 jest.mock('child_process');
 jest.mock('node-fetch');
 
+process.argv = ['node', './cli', 'analyze', 'react'];
+
 const dependantsHtml = `
   <html>
     <body>

@@ -12,8 +12,7 @@ async function bootstrap(argv = process.argv) {
       const result = await analyze(target);
       console.log(JSON.stringify(result, null, 2));
     });
-  await program.parseAsync(argv);
-  return program;
+  return program.parseAsync(argv);
 }
 
 export { bootstrap };
