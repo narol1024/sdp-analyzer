@@ -29,7 +29,7 @@ export async function readNpmPackageDependencies(packageName: string): Promise<N
             }
             const resultJson = JSON.parse(resultStdout) as any;
             if (!!resultJson.error) {
-              throw new Error(`Cannot read ${packageName}.`);
+              throw resultJson.error;
             }
             resolve(
               Object.entries(resultJson as NpmDependency).map(([name, version]) => ({
@@ -39,12 +39,13 @@ export async function readNpmPackageDependencies(packageName: string): Promise<N
             );
             return Promise.resolve();
           } catch (error) {
-            return Promise.reject(new Error(`Cannot read ${packageName}.`));
+            return Promise.reject(error);
           }
         },
       );
       Promise.race([npmViewPromise, timeoutPromise])
-        .catch(() => {
+        .catch(error => {
+          console.error(error);
           if (retriedTimes < 5) {
             retriedTimes += 1;
             doReadTask();
@@ -84,13 +85,14 @@ export async function countNpmPackageDependants(packageName: string, version: st
             resolve(parseInt(match.replace(/,/g, ''), 10));
             return Promise.resolve();
           }
-          throw new Error(`Operation failed`);
+          throw new Error(`Cannot matches target text`);
         } catch (error) {
-          return Promise.reject(new Error(`Operation failed`));
+          return Promise.reject(error);
         }
       };
       Promise.race([fetchPromise(), timeoutPromise])
-        .catch(() => {
+        .catch(error => {
+          console.error(error);
           if (retriedTimes < 5) {
             retriedTimes += 1;
             doCountTask();

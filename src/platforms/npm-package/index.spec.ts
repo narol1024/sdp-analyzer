@@ -4,6 +4,14 @@
  */
 import { readNpmPackageDependencies, countNpmPackageDependants, analyze } from './index';
 
+const originalConsoleError = console.error;
+beforeAll(() => {
+  console.error = jest.fn();
+});
+afterAll(() => {
+  console.error = originalConsoleError;
+});
+
 describe('Npm package tests', () => {
   it('should not read a non-existent package', async () => {
     await expect(readNpmPackageDependencies('is-a-non-existent-package')).rejects.toEqual(

@@ -1,7 +1,3 @@
-/**
- * This is a sample test suite.
- * Replace this with your implementation.
- */
 import { exec } from 'child_process';
 import fetch from 'node-fetch';
 
