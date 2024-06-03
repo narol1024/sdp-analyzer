@@ -16,6 +16,7 @@
   "types": "dist/main.d.ts",
   "scripts": {
     "prepare": "husky install",
+    "prebuild": "node -p \"'export const VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
     "build": "tsc --project tsconfig.build.json",
     "build:clean": "rm -rf tsconfig.build.tsbuildinfo && rm -rf ./dist",
     "test": "jest",
