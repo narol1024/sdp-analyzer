@@ -18,6 +18,7 @@ export async function GET(request: Request) {
         result: result,
       });
     } catch (error) {
+      console.error(error);
       return NextResponse.json({
         message: "Failed to query packages",
         result: [],
