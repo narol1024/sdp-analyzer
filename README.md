@@ -6,9 +6,9 @@
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat)](https://github.com/narol1024/sdp-analyzer/blob/main/LICENSE)
 
 
-An analyzer to implement the SDP (Stable Dependencies Principle) theory. You can quickly analyze your npm package here: https://narol.pro/sdp-analyzer
+An analyzer to implement the SDP (Stable Dependencies Principle) theory. You can quickly analyze your npm package here: https://sdp-analyzer.vercel.app/
 
-![](https://narol-blog.oss-cn-beijing.aliyuncs.com/blog-img/202405202249324.png)
+![](./app-screenshot.png)
 
 Here's just a simple quote, the theory is as follows:
 
